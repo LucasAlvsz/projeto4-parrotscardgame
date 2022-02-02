@@ -5,7 +5,7 @@ function virarCarta(botao) {
     idVerso.classList.toggle("verso-rotate")
 }
 
-let numeroDeCartas = prompt("Com quantas cartas você deseja jogar")
+
 let cartas = []
 const card = `
 <div class="card" onclick="virarCarta(this)">
@@ -13,8 +13,9 @@ const card = `
             <div class="face verso"></div>
 </div>
  `
-while (numeroDeCartas < 4 || numeroDeCartas > 14) {
-    numeroDeCartas = prompt("Com quantas cartas você deseja jogar")
+let numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar"))
+while (numeroDeCartas < 4 || numeroDeCartas > 14 || numeroDeCartas % 2 != 0) {
+    numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar"))
 }
 console.log(numeroDeCartas)
 const main = document.querySelector("main")
