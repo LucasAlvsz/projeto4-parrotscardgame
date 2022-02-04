@@ -11,7 +11,7 @@ function virarCarta(cartaClicada) {
     comparaId.push(cartaClicada.id)
     armazenaCarta.push(cartaClicada)
     console.log("numero jogadas:" + numeroDeJogadas)
-    if (comparaId.length == 2){
+    if (comparaId.length == 2) {
         // Desabilita clicks enquanto as cartas são verificadas
         // document.getElementById("1").parentNode.style.pointerEvents = "none"
         // Caso as cartas sejam iguais, permanencem viradas.
@@ -23,13 +23,20 @@ function virarCarta(cartaClicada) {
             numeroViradas += 1
             console.log("numero viradas:" + numeroViradas)
             console.log("numero cartas:" + numeroDeCartas / 2)
-            if (numeroViradas == numeroDeCartas / 2){
-                alert(`Você ganhou em ${numeroDeJogadas} jogadas!`)
-                if (prompt("Você deseja jogar novamente? 1: Sim - 2: Não") == "1") {
-                    location.reload();
-                }
+            if (numeroViradas == numeroDeCartas / 2) {
+                clearInterval(meuRelogio)
+                let segundos = document.querySelector(".relogio")
+                setTimeout(() => {
+                    alert(`Você ganhou em ${numeroDeJogadas} jogadas e em ${segundos.innerHTML} segundos!`)
+                }, 500);
+                setTimeout(() => {
+                    if (prompt("Você deseja jogar novamente? 1: Sim - 2: Não") == "1") {
+                        location.reload();
+                    }
+                }, 1000);
+                
             }
-        } else{
+        } else {
             // Desvira as cartas após 1 segundo, caso elas sejam diferentes.
             setTimeout(() => {
                 armazenaCarta[0].querySelector(".face").classList.toggle("frente-rotate")
@@ -43,6 +50,11 @@ function virarCarta(cartaClicada) {
     }
 }
 
+function relogio() {
+    let classRelogio = document.querySelector(".relogio")
+    classRelogio.innerHTML = parseInt(classRelogio.innerHTML) + 1
+}
+let meuRelogio = setInterval(relogio, 1000)
 let cartas = []
 let numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar (Min: 4 - Max: 14)"))
 while (numeroDeCartas < 4 || numeroDeCartas > 14 || numeroDeCartas % 2 != 0) {
@@ -68,5 +80,5 @@ function comparador() {
     return Math.random() - 0.5;
 }
 cartas.sort(comparador)
-main.innerHTML = cartas.toString().replace(/,/g, "")
+main.innerHTML += cartas.toString().replace(/,/g, "")
 

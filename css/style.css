@@ -24,6 +24,13 @@ main {
     flex-wrap: wrap;
     justify-content: center;
 }
+.relogio{
+    position: fixed;
+    top: 150px;
+    right: 10px;
+    font-size: 30px;
+    color: red;
+}
 
 .card {
     width: 117px;
