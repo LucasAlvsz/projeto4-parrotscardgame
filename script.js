@@ -1,19 +1,34 @@
 let comparaId = []
 let armazenaCarta = []
+let numeroDeJogadas = 0;
+let numeroViradas = 0;
 function virarCarta(cartaClicada) {
+    numeroDeJogadas += 1;
     let classFrente = cartaClicada.querySelector(".face")
     let classVerso = cartaClicada.querySelector(".verso")
     classFrente.classList.toggle("frente-rotate")
     classVerso.classList.toggle("verso-rotate")
     comparaId.push(cartaClicada.id)
     armazenaCarta.push(cartaClicada)
-    // Caso as cartas sejam iguais, permanencem viradas.
+    console.log("numero jogadas:" + numeroDeJogadas)
     if (comparaId.length == 2){
+        // Desabilita clicks enquanto as cartas são verificadas
+        // document.getElementById("1").parentNode.style.pointerEvents = "none"
+        // Caso as cartas sejam iguais, permanencem viradas.
         if (comparaId[0] == comparaId[1]) {
             armazenaCarta[0].disabled = true
             armazenaCarta[1].disabled = true
             comparaId = []
             armazenaCarta = []
+            numeroViradas += 1
+            console.log("numero viradas:" + numeroViradas)
+            console.log("numero cartas:" + numeroDeCartas / 2)
+            if (numeroViradas == numeroDeCartas / 2){
+                alert(`Você ganhou em ${numeroDeJogadas} jogadas!`)
+                if (prompt("Você deseja jogar novamente? 1: Sim - 2: Não") == "1") {
+                    location.reload();
+                }
+            }
         } else{
             // Desvira as cartas após 1 segundo, caso elas sejam diferentes.
             setTimeout(() => {
@@ -26,13 +41,12 @@ function virarCarta(cartaClicada) {
             comparaId = []
         }
     }
-
 }
 
 let cartas = []
-let numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar"))
+let numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar (Min: 4 - Max: 14)"))
 while (numeroDeCartas < 4 || numeroDeCartas > 14 || numeroDeCartas % 2 != 0) {
-    numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar"))
+    numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar (Min: 4 - Max: 14)"))
 }
 const main = document.querySelector("main")
 for (let i = 0; i < numeroDeCartas / 2; i++) {
