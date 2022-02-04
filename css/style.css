@@ -30,6 +30,8 @@ main {
     height: 146px;
     position: relative;
     margin: 34px;
+    border: 0;
+    background: none;
 }
 
 .card img {
@@ -41,29 +43,30 @@ main {
     width: 100%;
     height: 100%;
     position: absolute;
+    border-radius: 5px;
     border: 1px solid #99CEA8;
     background-color: #75B79E;
-    background-image: url(../gifs/front.png);
-    background-size: 100px 100px;
-    background-position: center;
-    background-repeat: no-repeat;
     backface-visibility: hidden;
     transition: all .5s;
     transform-style: preserve-3d;
 }
 
-.verso {
-    transform: rotateY(180deg);
-    background-image: url(../gifs/bobrossparrot.gif);
+.face img {
+    position: relative;
+    top: 24px;
+    left: 10px;
 }
 
+.verso {
+    transform: rotateY(180deg);
+}
 .verso-rotate {
     transform: rotateY(0deg);
 }
 
-.frente-rotate{
+.frente-rotate {
     transform: rotateY(-180deg);
-} 
+}
 
 @media (max-width: 480px) {
     header {
