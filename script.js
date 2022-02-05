@@ -7,9 +7,8 @@ let cartas = []
 let meuRelogio = setInterval(relogio, 1000)
 // Função que vira as cartas e analisa se devem as mesmas devem permanecer viradas ou "desvirarem"
 function virarCarta(cartaClicada) {
-    // Acrescenta 1 ao numero de jogadas total
+    document.getElementById("1").parentNode.style.pointerEvents = "none"
     numeroDeJogadas += 1;
-    // Selecionando classes de frente e verso das cartas 
     let classFrente = cartaClicada.querySelector(".face")
     let classVerso = cartaClicada.querySelector(".verso")
     classFrente.classList.toggle("frente-rotate")
@@ -19,17 +18,14 @@ function virarCarta(cartaClicada) {
     armazenaCarta.push(cartaClicada)
     // Caso duas cartas sejam clicadas ou/e não seja ela mesma
     if (comparaId.length == 2 && armazenaCarta[0] != armazenaCarta[1]) {
-        // Impede o click em outras cartas enquanto as analises/animações são feitas
-        document.getElementById("1").parentNode.style.pointerEvents = "none"
         // Caso os Ids das cartas sejam iguais, os pares permanencem virados.
         if (comparaId[0] == comparaId[1]) {
             armazenaCarta[0].disabled = true
             armazenaCarta[1].disabled = true
-            // Esvaziando listas
             comparaId = []
             armazenaCarta = []
-            // Acrescentando +1 no número de jogadas
             numeroViradas += 1
+            document.getElementById("1").parentNode.style.pointerEvents = ""
             // Caso o numero de viradas seja o total de cartas / 2 o jogo chega ao fim
             if (numeroViradas == numeroDeCartas / 2) {
                 clearInterval(meuRelogio)
@@ -44,7 +40,6 @@ function virarCarta(cartaClicada) {
                         location.reload();
                     }
                 }, 1000);
-
             }
         } else {
             // Desvira as cartas após 1 segundo, caso elas sejam diferentes.
@@ -53,15 +48,18 @@ function virarCarta(cartaClicada) {
                 armazenaCarta[0].querySelector(".verso").classList.toggle("verso-rotate")
                 classFrente.classList.toggle("frente-rotate")
                 classVerso.classList.toggle("verso-rotate")
+                armazenaCarta[0].disabled = false
                 armazenaCarta = []
+                document.getElementById("1").parentNode.style.pointerEvents = ""
             }, 1000);
             comparaId = []
         }
+    } else {
+        setTimeout(() => {
+            document.getElementById("1").parentNode.style.pointerEvents = ""
+            armazenaCarta[0].disabled = true
+        }, 600);
     }
-    setTimeout(() => {
-        // Reabilita os clicks após as cartas serem verificadas/desviradas
-        document.getElementById("1").parentNode.style.pointerEvents = ""
-    }, 1600);
 }
 // Função que acrescenta de 1 em 1 o relógio.
 function relogio() {
