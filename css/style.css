@@ -24,7 +24,8 @@ main {
     flex-wrap: wrap;
     justify-content: center;
 }
-.relogio{
+
+.relogio {
     position: fixed;
     top: 150px;
     right: 10px;
@@ -66,7 +67,11 @@ main {
 
 .verso {
     transform: rotateY(180deg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
 }
+
 .verso-rotate {
     transform: rotateY(0deg);
 }
@@ -75,6 +80,7 @@ main {
     transform: rotateY(-180deg);
 }
 
+/* Para Mobile */
 @media (max-width: 480px) {
     header {
         font-size: 36px;
