@@ -4,7 +4,6 @@ let armazenaCarta = []
 let numeroDeJogadas = 0;
 let numeroViradas = 0;
 let cartas = []
-let meuRelogio = setInterval(relogio, 1000)
 // Função que vira as cartas e analisa se devem as mesmas devem permanecer viradas ou "desvirarem"
 function virarCarta(cartaClicada) {
     document.getElementById("1").parentNode.style.pointerEvents = "none"
@@ -36,7 +35,7 @@ function virarCarta(cartaClicada) {
                 }, 500);
                 // Opção de jogar novamente após o alert de finalizar o jogo
                 setTimeout(() => {
-                    if (prompt("Você deseja jogar novamente? 1: Sim - 2: Não") == "1") {
+                    if (prompt("- Você deseja jogar novamente?\n- Digite '1' para: 'Sim' 👍\n- Digite qualquer outra coisa para: 'Não' 👎") == "1") {
                         location.reload();
                     }
                 }, 1000);
@@ -58,14 +57,17 @@ function virarCarta(cartaClicada) {
         setTimeout(() => {
             document.getElementById("1").parentNode.style.pointerEvents = ""
             armazenaCarta[0].disabled = true
-        }, 600);
+        }, 500);
     }
 }
 // Função que acrescenta de 1 em 1 o relógio.
 function relogio() {
-    let classRelogio = document.querySelector(".relogio")
-    classRelogio.innerHTML = parseInt(classRelogio.innerHTML) + 1
+    if (numeroDeJogadas > 0) {
+        let classRelogio = document.querySelector(".relogio")
+        classRelogio.innerHTML = parseInt(classRelogio.innerHTML) + 1
+    }
 }
+let meuRelogio = setInterval(relogio, 1000)
 // Enquanto o numero de cartas for invalido.
 let numeroDeCartas = parseInt(prompt("Com quantas cartas você deseja jogar (Min: 4 - Max: 14)"))
 while (numeroDeCartas < 4 || numeroDeCartas > 14 || numeroDeCartas % 2 != 0) {
